@@ -5,4 +5,4 @@ Coming soon!
 <br/>
 Click here to see a demo video on youtube ;-)
 <br/>
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/__mZapn-7r0/0.jpg)](http://www.youtube.com/watch?v=__mZapn-7r0)
+![ScreenShot](https://raw.github.com/alchimya/iOS-Google-Now-Cards-Interface-/master/screenshots/Google_Now_Cards_Interface_.gif)
