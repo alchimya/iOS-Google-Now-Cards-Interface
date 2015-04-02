@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA3465CB1ACD792C00022BD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3465CA1ACD792C00022BD7 /* main.m */; };
+		DA3465CE1ACD792C00022BD7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3465CD1ACD792C00022BD7 /* AppDelegate.m */; };
+		DA3465D11ACD792C00022BD7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3465D01ACD792C00022BD7 /* ViewController.m */; };
+		DA3465D41ACD792C00022BD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3465D21ACD792C00022BD7 /* Main.storyboard */; };
+		DA3465D61ACD792C00022BD7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3465D51ACD792C00022BD7 /* Images.xcassets */; };
+		DA3465D91ACD792C00022BD7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA3465D71ACD792C00022BD7 /* LaunchScreen.xib */; };
+		DA3465E51ACD792C00022BD7 /* iOS_Google_Now_Cards_InterfaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3465E41ACD792C00022BD7 /* iOS_Google_Now_Cards_InterfaceTests.m */; };
+		DA3465F31ACD79B600022BD7 /* L3SDKCard.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3465F01ACD79B600022BD7 /* L3SDKCard.m */; };
+		DA3465F41ACD79B600022BD7 /* L3SDKCardsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3465F21ACD79B600022BD7 /* L3SDKCardsView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DA3465DF1ACD792C00022BD7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA3465BD1ACD792C00022BD7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA3465C41ACD792C00022BD7;
+			remoteInfo = "iOS-Google-Now-Cards-Interface";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DA3465C51ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS-Google-Now-Cards-Interface.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA3465C91ACD792C00022BD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA3465CA1ACD792C00022BD7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DA3465CC1ACD792C00022BD7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DA3465CD1ACD792C00022BD7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DA3465CF1ACD792C00022BD7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DA3465D01ACD792C00022BD7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DA3465D31ACD792C00022BD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DA3465D51ACD792C00022BD7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DA3465D81ACD792C00022BD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		DA3465DE1ACD792C00022BD7 /* iOS-Google-Now-Cards-InterfaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS-Google-Now-Cards-InterfaceTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA3465E31ACD792C00022BD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA3465E41ACD792C00022BD7 /* iOS_Google_Now_Cards_InterfaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOS_Google_Now_Cards_InterfaceTests.m; sourceTree = "<group>"; };
+		DA3465EF1ACD79B600022BD7 /* L3SDKCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3SDKCard.h; sourceTree = "<group>"; };
+		DA3465F01ACD79B600022BD7 /* L3SDKCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3SDKCard.m; sourceTree = "<group>"; };
+		DA3465F11ACD79B600022BD7 /* L3SDKCardsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3SDKCardsView.h; sourceTree = "<group>"; };
+		DA3465F21ACD79B600022BD7 /* L3SDKCardsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3SDKCardsView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA3465C21ACD792C00022BD7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA3465DB1ACD792C00022BD7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA3465BC1ACD792C00022BD7 = {
+			isa = PBXGroup;
+			children = (
+				DA3465C71ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface */,
+				DA3465E11ACD792C00022BD7 /* iOS-Google-Now-Cards-InterfaceTests */,
+				DA3465C61ACD792C00022BD7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA3465C61ACD792C00022BD7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA3465C51ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface.app */,
+				DA3465DE1ACD792C00022BD7 /* iOS-Google-Now-Cards-InterfaceTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA3465C71ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface */ = {
+			isa = PBXGroup;
+			children = (
+				DA3465EE1ACD79B600022BD7 /* L3SDK */,
+				DA3465CC1ACD792C00022BD7 /* AppDelegate.h */,
+				DA3465CD1ACD792C00022BD7 /* AppDelegate.m */,
+				DA3465CF1ACD792C00022BD7 /* ViewController.h */,
+				DA3465D01ACD792C00022BD7 /* ViewController.m */,
+				DA3465D21ACD792C00022BD7 /* Main.storyboard */,
+				DA3465D51ACD792C00022BD7 /* Images.xcassets */,
+				DA3465D71ACD792C00022BD7 /* LaunchScreen.xib */,
+				DA3465C81ACD792C00022BD7 /* Supporting Files */,
+			);
+			path = "iOS-Google-Now-Cards-Interface";
+			sourceTree = "<group>";
+		};
+		DA3465C81ACD792C00022BD7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DA3465C91ACD792C00022BD7 /* Info.plist */,
+				DA3465CA1ACD792C00022BD7 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DA3465E11ACD792C00022BD7 /* iOS-Google-Now-Cards-InterfaceTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA3465E41ACD792C00022BD7 /* iOS_Google_Now_Cards_InterfaceTests.m */,
+				DA3465E21ACD792C00022BD7 /* Supporting Files */,
+			);
+			path = "iOS-Google-Now-Cards-InterfaceTests";
+			sourceTree = "<group>";
+		};
+		DA3465E21ACD792C00022BD7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DA3465E31ACD792C00022BD7 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DA3465EE1ACD79B600022BD7 /* L3SDK */ = {
+			isa = PBXGroup;
+			children = (
+				DA3465EF1ACD79B600022BD7 /* L3SDKCard.h */,
+				DA3465F01ACD79B600022BD7 /* L3SDKCard.m */,
+				DA3465F11ACD79B600022BD7 /* L3SDKCardsView.h */,
+				DA3465F21ACD79B600022BD7 /* L3SDKCardsView.m */,
+			);
+			path = L3SDK;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA3465C41ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA3465E81ACD792C00022BD7 /* Build configuration list for PBXNativeTarget "iOS-Google-Now-Cards-Interface" */;
+			buildPhases = (
+				DA3465C11ACD792C00022BD7 /* Sources */,
+				DA3465C21ACD792C00022BD7 /* Frameworks */,
+				DA3465C31ACD792C00022BD7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOS-Google-Now-Cards-Interface";
+			productName = "iOS-Google-Now-Cards-Interface";
+			productReference = DA3465C51ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DA3465DD1ACD792C00022BD7 /* iOS-Google-Now-Cards-InterfaceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA3465EB1ACD792C00022BD7 /* Build configuration list for PBXNativeTarget "iOS-Google-Now-Cards-InterfaceTests" */;
+			buildPhases = (
+				DA3465DA1ACD792C00022BD7 /* Sources */,
+				DA3465DB1ACD792C00022BD7 /* Frameworks */,
+				DA3465DC1ACD792C00022BD7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA3465E01ACD792C00022BD7 /* PBXTargetDependency */,
+			);
+			name = "iOS-Google-Now-Cards-InterfaceTests";
+			productName = "iOS-Google-Now-Cards-InterfaceTests";
+			productReference = DA3465DE1ACD792C00022BD7 /* iOS-Google-Now-Cards-InterfaceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA3465BD1ACD792C00022BD7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = LamCube;
+				TargetAttributes = {
+					DA3465C41ACD792C00022BD7 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					DA3465DD1ACD792C00022BD7 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = DA3465C41ACD792C00022BD7;
+					};
+				};
+			};
+			buildConfigurationList = DA3465C01ACD792C00022BD7 /* Build configuration list for PBXProject "iOS-Google-Now-Cards-Interface" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA3465BC1ACD792C00022BD7;
+			productRefGroup = DA3465C61ACD792C00022BD7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DA3465C41ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface */,
+				DA3465DD1ACD792C00022BD7 /* iOS-Google-Now-Cards-InterfaceTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA3465C31ACD792C00022BD7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA3465D41ACD792C00022BD7 /* Main.storyboard in Resources */,
+				DA3465D91ACD792C00022BD7 /* LaunchScreen.xib in Resources */,
+				DA3465D61ACD792C00022BD7 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA3465DC1ACD792C00022BD7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA3465C11ACD792C00022BD7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA3465D11ACD792C00022BD7 /* ViewController.m in Sources */,
+				DA3465F31ACD79B600022BD7 /* L3SDKCard.m in Sources */,
+				DA3465CE1ACD792C00022BD7 /* AppDelegate.m in Sources */,
+				DA3465F41ACD79B600022BD7 /* L3SDKCardsView.m in Sources */,
+				DA3465CB1ACD792C00022BD7 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA3465DA1ACD792C00022BD7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA3465E51ACD792C00022BD7 /* iOS_Google_Now_Cards_InterfaceTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA3465E01ACD792C00022BD7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA3465C41ACD792C00022BD7 /* iOS-Google-Now-Cards-Interface */;
+			targetProxy = DA3465DF1ACD792C00022BD7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DA3465D21ACD792C00022BD7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA3465D31ACD792C00022BD7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA3465D71ACD792C00022BD7 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA3465D81ACD792C00022BD7 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DA3465E61ACD792C00022BD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DA3465E71ACD792C00022BD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA3465E91ACD792C00022BD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "iOS-Google-Now-Cards-Interface/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DA3465EA1ACD792C00022BD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "iOS-Google-Now-Cards-Interface/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DA3465EC1ACD792C00022BD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "iOS-Google-Now-Cards-InterfaceTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS-Google-Now-Cards-Interface.app/iOS-Google-Now-Cards-Interface";
+			};
+			name = Debug;
+		};
+		DA3465ED1ACD792C00022BD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "iOS-Google-Now-Cards-InterfaceTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS-Google-Now-Cards-Interface.app/iOS-Google-Now-Cards-Interface";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA3465C01ACD792C00022BD7 /* Build configuration list for PBXProject "iOS-Google-Now-Cards-Interface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA3465E61ACD792C00022BD7 /* Debug */,
+				DA3465E71ACD792C00022BD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA3465E81ACD792C00022BD7 /* Build configuration list for PBXNativeTarget "iOS-Google-Now-Cards-Interface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA3465E91ACD792C00022BD7 /* Debug */,
+				DA3465EA1ACD792C00022BD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DA3465EB1ACD792C00022BD7 /* Build configuration list for PBXNativeTarget "iOS-Google-Now-Cards-InterfaceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA3465EC1ACD792C00022BD7 /* Debug */,
+				DA3465ED1ACD792C00022BD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA3465BD1ACD792C00022BD7 /* Project object */;
+}
