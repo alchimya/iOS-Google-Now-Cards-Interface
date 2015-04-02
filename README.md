@@ -1,4 +1,4 @@
-# iOS-Google-Now-Cards-Interface-
+# iOS-Google-Now-Cards-Interface
 Trying to replicate the Google's Search Cards Animation on iOS
 <br/>
 Coming soon ;-)
