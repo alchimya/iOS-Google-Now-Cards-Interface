@@ -159,6 +159,7 @@
             }
             return NO;
         }
+
     }else if(scrollDirection==UISwipeGestureRecognizerDirectionDown  && self.frame.origin.y>0) {
         //DOWN
         if (fabs(self.frame.origin.y)>=self.zeroFrame.origin.y ) {
@@ -168,7 +169,6 @@
             }
             return NO;
         }
-        
     }
 
     return YES;
@@ -182,13 +182,15 @@
     
     //gets gesture direction
     self.gestureDirection=[self getGestureDirectionWithTouch:touch];
+    BOOL canScroll=[self canScroll:self.gestureDirection];
     //send event
-    if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnScrolling:)]) {
-        [self.delegate L3SDKCardsView_OnScrolling:self.gestureDirection];
+    if (canScroll) {
+        if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnScrolling:)]) {
+            [self.delegate L3SDKCardsView_OnScrolling:self.gestureDirection];
+        }
     }
-    
-    
-    if ((self.gestureDirection==UISwipeGestureRecognizerDirectionUp |self.gestureDirection==UISwipeGestureRecognizerDirectionDown) && [self canScroll:self.gestureDirection]) {
+
+    if ((self.gestureDirection==UISwipeGestureRecognizerDirectionUp |self.gestureDirection==UISwipeGestureRecognizerDirectionDown) && canScroll) {
         //scroll containter view
         self.frame = CGRectOffset(self.frame,
                                   (0),
