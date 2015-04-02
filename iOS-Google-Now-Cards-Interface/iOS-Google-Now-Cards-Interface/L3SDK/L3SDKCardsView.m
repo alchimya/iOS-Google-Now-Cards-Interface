@@ -40,7 +40,9 @@
     [super drawRect:rect];
     [self setupHeight];
     
+    
 }
+
 -(void)addSubviewAtBottom:(UIView *)view{
     
     
@@ -109,7 +111,17 @@
     return self;
     
 }
-
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    
+    if(self)
+    {
+        self.backgroundColor = [UIColor clearColor];
+    }
+    
+    return self;
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
@@ -144,12 +156,7 @@
 }
 -(BOOL)canScroll:(UISwipeGestureRecognizerDirection)scrollDirection{
     
-    
-    //avoid vertical scoll if is not required (content of view < of height view)
-    if (self.frame.size.height<self.superview.frame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
-        return NO;
-    }
-    
+
     if(scrollDirection==UISwipeGestureRecognizerDirectionUp && self.frame.origin.y<0) {
         //UP scrolling
         if (fabs(self.frame.origin.y)>=self.frame.size.height-self.superview.frame.size.height) {
@@ -169,6 +176,11 @@
             }
             return NO;
         }
+    }
+    
+    //avoid vertical scoll if is not required (content of view < of height view)
+    if (self.frame.size.height<self.superview.frame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
+        return NO;
     }
 
     return YES;

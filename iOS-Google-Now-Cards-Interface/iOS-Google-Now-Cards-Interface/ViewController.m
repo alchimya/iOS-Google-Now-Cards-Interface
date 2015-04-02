@@ -55,6 +55,8 @@
     
     [self.containerView addSubviewAtBottom:self.moreButton];
     
+    //self.containerView.backgroundColor=[UIColor clearColor];
+    
 }
 
 //////////////////////////////////////////////////////////////////////////////////
