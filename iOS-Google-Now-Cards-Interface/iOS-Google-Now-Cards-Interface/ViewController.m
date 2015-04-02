@@ -78,8 +78,11 @@
     self.headerView.alpha=1;
 }
 
-- (void)L3SDKCardsView_CardRemoved:(L3SDKCard*)view{
+- (void)L3SDKCardsView_OnCardRemoved:(L3SDKCard*)view{
     NSLog(@"card deleted");
+}
+- (void)L3SDKCardsView_OnAllCardRemoved{
+    self.headerView.alpha=1;
 }
 //////////////////////////////////////////////////////////////////////////////////
 

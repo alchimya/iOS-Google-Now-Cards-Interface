@@ -58,16 +58,7 @@
 
     int height=0;
     
-    if (self.cards.count==0 && self.subViews.count!=0) {
-        //if the are not cards but there are subviews, sets the start height equal to the view height
-        UIView*firstSubView=(UIView*)[self.subViews objectAtIndex:0];
-        self.frame=CGRectMake(
-                              self.frame.origin.x,
-                              self.frame.origin.y,
-                              self.frame.size.width,
-                              self.superview.frame.size.height-self.frame.origin.y-firstSubView.frame.size.height-CARD_Y_MARGIN);
-        height=self.frame.size.height-CARD_Y_MARGIN;
-    }
+
     //cards loop
     for (int i=0; i<self.cards.count; i++) {
         L3SDKCard*card=[self.cards objectAtIndex:i];
@@ -88,10 +79,20 @@
     }
 
     
-    self.frame=CGRectMake(
-                          self.frame.origin.x,
-                          self.frame.origin.y,
-                          self.frame.size.width, height);
+    if (self.cards.count==0 && self.subViews.count!=0) {
+        //if the are not cards but there are subviews, sets the start height equal to the view height
+        UIView*firstSubView=(UIView*)[self.subViews objectAtIndex:0];
+        self.frame=CGRectMake(
+                              self.frame.origin.x,
+                              self.superview.frame.size.height-firstSubView.frame.size.height-(CARD_Y_MARGIN*2),
+                              self.frame.size.width,
+                              firstSubView.frame.size.height+CARD_Y_MARGIN);
+    }else{
+        self.frame=CGRectMake(
+                              self.frame.origin.x,
+                              self.frame.origin.y,
+                              self.frame.size.width, height);
+    }
 
  
     
@@ -145,10 +146,10 @@
     
     
     //avoid vertical scoll if is not required (content of view < of height view)
-    if (self.frame.size.height<self.superview.frame.size.height) {
+    if (self.frame.size.height<self.superview.frame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
         return NO;
     }
-
+    
     if(scrollDirection==UISwipeGestureRecognizerDirectionUp && self.frame.origin.y<0) {
         //UP scrolling
         if (fabs(self.frame.origin.y)>=self.frame.size.height-self.superview.frame.size.height) {
@@ -160,7 +161,7 @@
         }
     }else if(scrollDirection==UISwipeGestureRecognizerDirectionDown  && self.frame.origin.y>0) {
         //DOWN
-        if (fabs(self.frame.origin.y)>=self.zeroFrame.origin.y) {
+        if (fabs(self.frame.origin.y)>=self.zeroFrame.origin.y ) {
             //scroll will stop when first view is on the initial frame y
             if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnBottomLimitReached)]) {
                 [self.delegate L3SDKCardsView_OnBottomLimitReached];
@@ -193,6 +194,7 @@
                                   (0),
                                   (gestureEndPoint.y - self.gestureStartPoint.y));
 
+        
     }else if (self.gestureDirection==UISwipeGestureRecognizerDirectionLeft | self.gestureDirection==UISwipeGestureRecognizerDirectionRight) {
         if ([self.gestureView isEqual:self]) {
             return;
@@ -221,8 +223,13 @@
             [self.gestureView removeFromSuperview];
             [self.cards removeObject:self.gestureView];
             [self setupHeight];
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardRemoved:)]) {
-                [self.delegate L3SDKCardsView_CardRemoved:(L3SDKCard*)self.gestureView];
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnCardRemoved:)]) {
+                [self.delegate L3SDKCardsView_OnCardRemoved:(L3SDKCard*)self.gestureView];
+            }
+            if (self.cards.count==0) {
+                if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnAllCardRemoved)]) {
+                    [self.delegate L3SDKCardsView_OnAllCardRemoved];
+                }
             }
         }else{
             //card will be positioned at the orginila position
