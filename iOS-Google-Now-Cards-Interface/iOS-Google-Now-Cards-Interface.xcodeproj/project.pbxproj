@@ -434,6 +434,7 @@
 				DA3465EA1ACD792C00022BD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DA3465EB1ACD792C00022BD7 /* Build configuration list for PBXNativeTarget "iOS-Google-Now-Cards-InterfaceTests" */ = {
 			isa = XCConfigurationList;
@@ -442,6 +443,7 @@
 				DA3465ED1ACD792C00022BD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

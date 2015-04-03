@@ -7,27 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "L3SDKCard.h"
-@protocol L3SDKCardsViewDelegate <NSObject>
 
+
+typedef NS_OPTIONS(NSUInteger, L3SDKCardOptions) {
+    L3SDKCardOptionsIsSwipeableCard = 1 << 0
+};
+
+
+@protocol L3SDKCardsViewDelegate <NSObject>
 @optional
 - (void)L3SDKCardsView_Scrolling:(UISwipeGestureRecognizerDirection)scrollDirection;
-- (void)L3SDKCardsView_CardWillRemove:(L3SDKCard*)view;
-- (void)L3SDKCardsView_CardDidlRemove:(L3SDKCard*)view;
+- (void)L3SDKCardsView_CardWillRemove:(UIView*)view;
+- (void)L3SDKCardsView_CardDidlRemove:(UIView*)view;
 - (void)L3SDKCardsView_AllCardRemoved;
 - (void)L3SDKCardsView_UpperLimitReached;
 - (void)L3SDKCardsView_BottomLimitReached;
-
 @end
-
 
 
 @interface L3SDKCardsView : UIView
 @property (nonatomic,assign)IBOutlet id<L3SDKCardsViewDelegate> delegate;
 @property (readonly,nonatomic,strong)NSMutableArray*cards;
-@property (readonly,nonatomic,strong)NSMutableArray*subViews;
 @property (nonatomic,assign)CGRect zeroFrame;
-
--(void)addCard:(L3SDKCard*)card;
--(void)addSubviewAtBottom:(UIView *)view;
+-(void)addCard:(UIView*)card;
+-(void)addCard:(UIView*)card withOptions:(L3SDKCardOptions)options;
 @end

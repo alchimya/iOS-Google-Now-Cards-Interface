@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     //sets delegate
     self.containerView.delegate=self;
     
@@ -30,19 +31,20 @@
     L3SDKCard*card;
     //card1
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 100)];
-    [self.containerView addCard:card];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
     //card2
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 150)];
-    [self.containerView addCard:card];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    
     //card3
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 80)];
-    [self.containerView addCard:card];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
     //card4
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 120)];
-    [self.containerView addCard:card];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
     //card5
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 220)];
-    [self.containerView addCard:card];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
     
     
     //add a view (UIButton) at bottom
@@ -53,10 +55,9 @@
     [self.moreButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     self.moreButton.titleLabel.font= [UIFont italicSystemFontOfSize:16.0f];
     
-    [self.containerView addSubviewAtBottom:self.moreButton];
-    
-    //self.containerView.backgroundColor=[UIColor clearColor];
-    
+    [self.containerView addCard:self.moreButton];
+
+
     
 }
 
@@ -70,10 +71,10 @@
 - (void)L3SDKCardsView_Scrolling:(UISwipeGestureRecognizerDirection)scrollDirection{
     self.headerView.alpha=[self getAlphaHeader];
 }
-- (void)L3SDKCardsView_CardWillRemove:(L3SDKCard*)view{
+- (void)L3SDKCardsView_CardWillRemove:(UIView*)view{
     NSLog(@"card will remove");
 }
-- (void)L3SDKCardsView_CardDidlRemove:(L3SDKCard*)view{
+- (void)L3SDKCardsView_CardDidlRemove:(UIView*)view{
     NSLog(@"card did remove");
     self.headerView.alpha=[self getAlphaHeader];
 }

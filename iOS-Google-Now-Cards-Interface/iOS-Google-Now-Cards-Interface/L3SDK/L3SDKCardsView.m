@@ -10,29 +10,23 @@
 #define CARD_X_MARGIN   20
 #define CARD_Y_MARGIN   10
 
+
+
 @interface L3SDKCardsView ()
     @property (nonatomic,assign) UISwipeGestureRecognizerDirection gestureDirection;
     @property (nonatomic,assign)CGPoint gestureStartPoint;
     @property (nonatomic,assign)UIView*gestureView;
-    
+    @property (nonatomic,strong)NSMutableArray*cardsOptions;
 @end
 
 
 @implementation L3SDKCardsView
-
 @synthesize cards;
-@synthesize subViews;
 @synthesize delegate;
 @synthesize zeroFrame;
--(void)addCard:(L3SDKCard*)card{
 
-    if (!cards) {
-        cards=[[NSMutableArray alloc]initWithCapacity:10];
-    }
-    [cards addObject:card];
-    [self addSubview:card];
-}
 
+#pragma mark - Init
 
 - (void)drawRect:(CGRect)rect {
     
@@ -40,80 +34,11 @@
     [super drawRect:rect];
     [self setupHeight];
     
-    
 }
-
--(void)addSubviewAtBottom:(UIView *)view{
-    
-    
-    if (!subViews) {
-        subViews=[[NSMutableArray alloc]initWithCapacity:10];
-    }
-    [subViews addObject:view];
-    [self addSubview:view];
-   
-    
-}
-
-
--(void)setupHeight{
-
-    int height=0;
-    
-
-    //cards loop
-    for (int i=0; i<self.cards.count; i++) {
-        L3SDKCard*card=[self.cards objectAtIndex:i];
-        card.frame=CGRectMake(
-                              card.frame.origin.x,
-                              height, self.frame.size.width-CARD_X_MARGIN, card.frame.size.height);
-        card.center = CGPointMake(self.frame.size.width / 2, card.center.y+CARD_Y_MARGIN);
-        height+=card.frame.size.height+CARD_Y_MARGIN;
-    }
-    //additional views loop
-    for (int i=0; i<self.subViews.count; i++) {
-        UIView*view=[self.subViews objectAtIndex:i];
-        view.frame=CGRectMake(
-                              view.frame.origin.x,
-                              height, self.frame.size.width-CARD_X_MARGIN, view.frame.size.height);
-        view.center = CGPointMake(self.frame.size.width / 2, view.center.y+CARD_Y_MARGIN);
-        height+=view.frame.size.height+CARD_Y_MARGIN;
-    }
-
-    
-    if (self.cards.count==0 && self.subViews.count!=0) {
-        //if the are not cards but there are subviews, sets the start height equal to the view height
-        UIView*firstSubView=(UIView*)[self.subViews objectAtIndex:0];
-        self.frame=CGRectMake(
-                              self.frame.origin.x,
-                              self.superview.frame.size.height-firstSubView.frame.size.height-(CARD_Y_MARGIN*2),
-                              self.frame.size.width,
-                              firstSubView.frame.size.height+CARD_Y_MARGIN);
-    }else{
-
-        //Note:If self.frame.origin.y<0 we will scroll down the view
-        //this behavior it will be useful when we are removing a card on the bottom
-        //and the y view is negative
-        if (self.frame.origin.y<0) {
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_Scrolling:)]) {
-                [self.delegate L3SDKCardsView_Scrolling:UISwipeGestureRecognizerDirectionDown];
-            }
-        }
-        self.frame=CGRectMake(
-                              self.frame.origin.x,
-                              self.frame.origin.y<0 ? self.frame.origin.y+self.gestureView.frame.size.height :self.frame.origin.y,
-                              self.frame.size.width, height);
-
-    }
-
- 
-    
-}
-
 
 -(id)initWithFrame:(CGRect)frame{
-
-
+    
+    
     self=[super initWithFrame:frame];
     if (self) {
         [self drawRect:frame];
@@ -125,16 +50,79 @@
 {
     self = [super initWithCoder:coder];
     
-    if(self)
-    {
+    if(self){
         self.backgroundColor = [UIColor clearColor];
+        cards=[[NSMutableArray alloc]initWithCapacity:10];
+        self.cardsOptions=[[NSMutableArray alloc]initWithCapacity:10];
     }
     
     return self;
 }
 
+
+#pragma mark - Public Methods
+-(void)addCard:(UIView*)card{
+    [self addCard:card withOptions:-1];
+}
+-(void)addCard:(UIView*)card withOptions:(L3SDKCardOptions)options{
+    [cards addObject:card];
+   
+    [self.cardsOptions addObject:[[NSValue alloc]  initWithBytes:&options objCType:@encode(L3SDKCardOptions)]];
+    [self addSubview:card];
+}
+
+#pragma mark - Card Layout
+-(void)setupHeight{
+    
+    //height of container cards view
+    int height=0;
+    //y of container cards view
+    CGFloat y=self.frame.origin.y;
+    
+    //views loop
+    for (int i=0; i<self.cards.count; i++) {
+        UIView*card=[self.cards objectAtIndex:i];
+        card.frame=CGRectMake(
+                              card.frame.origin.x,
+                              height,
+                              self.frame.size.width-CARD_X_MARGIN,
+                              card.frame.size.height);
+        card.center = [self getCardCenter:card andXOffset:0 andYOffset:CARD_Y_MARGIN];
+        height+=card.frame.size.height+CARD_Y_MARGIN;
+
+    }
+    
+    
+    //Note:If self.frame.origin.y<0 we will scroll down the view
+    //This behavior will be useful when we are removing a card
+    if (self.frame.origin.y<0) {
+        if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_Scrolling:)]) {
+            [self.delegate L3SDKCardsView_Scrolling:UISwipeGestureRecognizerDirectionDown];
+        }
+    }
+    
+    if (self.cards.count==1) {
+        //if theRE is only one view move the container at the bottom line
+        y=self.superview.frame.size.height-((UIView*)[self.cards objectAtIndex:0]).frame.size.height-(CARD_Y_MARGIN*2);
+    }
+    
+    self.frame=CGRectMake(
+                          self.frame.origin.x,
+                          self.frame.origin.y<0 ? self.frame.origin.y+self.gestureView.frame.size.height :y,
+                          self.frame.size.width,
+                          height);
+    
+}
+
+
+
+
+
+#pragma mark - Touch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    //NSLog(@"touchesBegan");
     UITouch *touch = [touches anyObject];
+    
     
     //set start touch point
     self.gestureStartPoint = [touch locationInView:self];
@@ -143,12 +131,107 @@
     
 }
 
+- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+{
+    //NSLog(@"touchesMoved");
+    UITouch *touch = [touches anyObject];
+    CGPoint gestureEndPoint = [touch locationInView:self];
+    
+    
+    //gets gesture direction
+    //avoid to swipe on up/down scrolling
+    self.gestureDirection=[self getGestureDirectionWithTouch:touch];
+    
+
+    BOOL canScroll=[self canScroll:self.gestureDirection];
+    //send event
+    if (canScroll) {
+        if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_Scrolling:)]) {
+            [self.delegate L3SDKCardsView_Scrolling:self.gestureDirection];
+        }
+    }
+
+    if ((self.gestureDirection==UISwipeGestureRecognizerDirectionUp |self.gestureDirection==UISwipeGestureRecognizerDirectionDown) && canScroll) {
+
+        
+        //scroll containter view
+        self.frame = CGRectOffset(self.frame,
+                                  (0),
+                                  (gestureEndPoint.y - self.gestureStartPoint.y));
+
+        
+    }else if (self.gestureDirection==UISwipeGestureRecognizerDirectionLeft | self.gestureDirection==UISwipeGestureRecognizerDirectionRight) {
+        if ([self.gestureView isEqual:self]) {
+            return;
+        }
+
+        //swipe card
+        gestureEndPoint = [touch locationInView:self.gestureView];
+        self.gestureView.frame = CGRectOffset(self.gestureView.frame,
+                                         (gestureEndPoint.x - self.gestureStartPoint.x),
+                                         (0));
+        if (self.gestureView.alpha>0.4) {
+            self.gestureView.alpha=self.gestureView.alpha-0.03;
+        }
+    }
+    
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    //NSLog(@"touchesEnded");
+
+    if (![self.gestureView isEqual:self]) {
+
+        
+        //we are swiping a card
+        float x=self.gestureView.frame.origin.x;
+        if (fabs(x)>self.frame.size.width/2){
+            //view can swipe?
+            
+            if (![self viewCanSwipe:self.gestureView]) {
+                return;
+            }
+            
+            //card will be deleted when x is greater than half width view
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardWillRemove:)]) {
+                [self.delegate L3SDKCardsView_CardWillRemove:self.gestureView];
+            }
+            
+            [self.gestureView removeFromSuperview];
+            [self.cards removeObject:self.gestureView];
+            [self setupHeight];
+            
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardDidlRemove:)]) {
+                [self.delegate L3SDKCardsView_CardDidlRemove:self.gestureView];
+            }
+            
+            if (self.cards.count==0) {
+                if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_AllCardRemoved)]) {
+                    [self.delegate L3SDKCardsView_AllCardRemoved];
+                }
+            }
+        }else{
+            //card will be positioned at the orginila position
+            self.gestureView.center = [self getCardCenter:self.gestureView];
+            self.gestureView.alpha=1.0;
+        }
+    }
+
+    
+}
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    //NSLog(@"touchesCancelled");
+}
+
+#pragma mark - Touch Utility
 -(UISwipeGestureRecognizerDirection)getGestureDirectionWithTouch:(UITouch*)touch {
     
     CGPoint gestureEndPoint = [touch locationInView:self];
     int dx = abs(self.gestureStartPoint.x - gestureEndPoint.x);
     int dy = -1 * (gestureEndPoint.y - self.gestureStartPoint.y);
-
+    
+    
     if(dx > 20) {
         // too much left/right, so don't do anything
         return UISwipeGestureRecognizerDirectionRight;
@@ -166,7 +249,7 @@
 }
 -(BOOL)canScroll:(UISwipeGestureRecognizerDirection)scrollDirection{
     
-
+    
     if(scrollDirection==UISwipeGestureRecognizerDirectionUp && self.frame.origin.y<0) {
         //UP scrolling
         if (fabs(self.frame.origin.y)>=self.frame.size.height-self.superview.frame.size.height) {
@@ -176,7 +259,7 @@
             }
             return NO;
         }
-
+        
     }else if(scrollDirection==UISwipeGestureRecognizerDirectionDown  && self.frame.origin.y>0) {
         //DOWN
         if (fabs(self.frame.origin.y)>=self.zeroFrame.origin.y ) {
@@ -189,94 +272,45 @@
     }
     
     //avoid vertical scoll if is not required (content of view < of height view)
-    if (self.frame.size.height<self.superview.frame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
+
+    if ((self.frame.size.height + self.frame.origin.y)<self.superview.frame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
         return NO;
     }
+    
 
     return YES;
     
 }
 
-- (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
-{
 
-    UITouch *touch = [touches anyObject];
-    CGPoint gestureEndPoint = [touch locationInView:self];
+#pragma mark - Card Utility
+-(L3SDKCardOptions) getOptionsForView:(UIView*)view{
+    int index=[self.cards indexOfObject:view];
     
-    //gets gesture direction
-    self.gestureDirection=[self getGestureDirectionWithTouch:touch];
-    BOOL canScroll=[self canScroll:self.gestureDirection];
-    //send event
-    if (canScroll) {
-        if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_Scrolling:)]) {
-            [self.delegate L3SDKCardsView_Scrolling:self.gestureDirection];
-        }
-    }
-
-    if ((self.gestureDirection==UISwipeGestureRecognizerDirectionUp |self.gestureDirection==UISwipeGestureRecognizerDirectionDown) && canScroll) {
-        //scroll containter view
-        self.frame = CGRectOffset(self.frame,
-                                  (0),
-                                  (gestureEndPoint.y - self.gestureStartPoint.y));
-
-        
-    }else if (self.gestureDirection==UISwipeGestureRecognizerDirectionLeft | self.gestureDirection==UISwipeGestureRecognizerDirectionRight) {
-        if ([self.gestureView isEqual:self]) {
-            return;
-        }
-        //swipe card
-        gestureEndPoint = [touch locationInView:self.gestureView];
-        self.gestureView.frame = CGRectOffset(self.gestureView.frame,
-                                         (gestureEndPoint.x - self.gestureStartPoint.x),
-                                         (0));
-        if (self.gestureView.alpha>0.4) {
-            self.gestureView.alpha=self.gestureView.alpha-0.03;
-        }
-    }
+    NSValue*value=[self.cardsOptions objectAtIndex:index];
+    L3SDKCardOptions ret;
+    [value getValue:&ret];
     
+    
+    return ret;
 }
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    //NSLog(@"touchesEnded");
+-(BOOL)viewCanSwipe:(UIView*)view{
     
-    
-    if (![self.gestureView isEqual:self]) {
-
-        //we are swiping a card
-        float x=self.gestureView.frame.origin.x;
-        if (fabs(x)>self.frame.size.width/2){
-            //card will be deleted when x is greater than half width view
-            
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardWillRemove:)]) {
-                [self.delegate L3SDKCardsView_CardWillRemove:(L3SDKCard*)self.gestureView];
-            }
-            
-            [self.gestureView removeFromSuperview];
-            [self.cards removeObject:self.gestureView];
-            [self setupHeight];
-            
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardDidlRemove:)]) {
-                [self.delegate L3SDKCardsView_CardDidlRemove:(L3SDKCard*)self.gestureView];
-            }
-            
-            if (self.cards.count==0) {
-                if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_AllCardRemoved)]) {
-                    [self.delegate L3SDKCardsView_AllCardRemoved];
-                }
-            }
-        }else{
-            //card will be positioned at the orginila position
-            L3SDKCard*card=(L3SDKCard*)self.gestureView;
-            self.gestureView.frame=card.zeroFrame;
-            self.gestureView.alpha=1.0;
-        }
+    L3SDKCardOptions options=[self getOptionsForView:view];
+    if (options==L3SDKCardOptionsIsSwipeableCard) {
+        return YES;
     }
+    return NO;
 
-    
 }
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    //NSLog(@"touchesCancelled");
+-(CGPoint)getCardCenter:(UIView*)card {
+    return [self getCardCenter:card andXOffset:0 andYOffset:0];
 }
-
+-(CGPoint)getCardCenter:(UIView*)card andXOffset:(int)xOffset andYOffset:(int)yOffset{
+    return CGPointMake(
+                       (self.frame.size.width / 2)+xOffset,
+                       card.center.y+yOffset
+                       );
+}
 
 @end
