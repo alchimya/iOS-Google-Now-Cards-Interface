@@ -14,7 +14,7 @@
     @property (nonatomic,assign) UISwipeGestureRecognizerDirection gestureDirection;
     @property (nonatomic,assign)CGPoint gestureStartPoint;
     @property (nonatomic,assign)UIView*gestureView;
-    @property (nonatomic,assign)CGRect zeroFrame;
+    
 @end
 
 
@@ -23,7 +23,7 @@
 @synthesize cards;
 @synthesize subViews;
 @synthesize delegate;
-
+@synthesize zeroFrame;
 -(void)addCard:(L3SDKCard*)card{
 
     if (!cards) {
@@ -90,10 +90,20 @@
                               self.frame.size.width,
                               firstSubView.frame.size.height+CARD_Y_MARGIN);
     }else{
+
+        //Note:If self.frame.origin.y<0 we will scroll down the view
+        //this behavior it will be useful when we are removing a card on the bottom
+        //and the y view is negative
+        if (self.frame.origin.y<0) {
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_Scrolling:)]) {
+                [self.delegate L3SDKCardsView_Scrolling:UISwipeGestureRecognizerDirectionDown];
+            }
+        }
         self.frame=CGRectMake(
                               self.frame.origin.x,
-                              self.frame.origin.y,
+                              self.frame.origin.y<0 ? self.frame.origin.y+self.gestureView.frame.size.height :self.frame.origin.y,
                               self.frame.size.width, height);
+
     }
 
  
@@ -161,8 +171,8 @@
         //UP scrolling
         if (fabs(self.frame.origin.y)>=self.frame.size.height-self.superview.frame.size.height) {
             //scroll will stop when last bottom view is at bottom margin
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnUpperLimitReached)]) {
-                [self.delegate L3SDKCardsView_OnUpperLimitReached];
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_UpperLimitReached)]) {
+                [self.delegate L3SDKCardsView_UpperLimitReached];
             }
             return NO;
         }
@@ -171,8 +181,8 @@
         //DOWN
         if (fabs(self.frame.origin.y)>=self.zeroFrame.origin.y ) {
             //scroll will stop when first view is on the initial frame y
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnBottomLimitReached)]) {
-                [self.delegate L3SDKCardsView_OnBottomLimitReached];
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_BottomLimitReached)]) {
+                [self.delegate L3SDKCardsView_BottomLimitReached];
             }
             return NO;
         }
@@ -186,6 +196,7 @@
     return YES;
     
 }
+
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
 
@@ -197,8 +208,8 @@
     BOOL canScroll=[self canScroll:self.gestureDirection];
     //send event
     if (canScroll) {
-        if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnScrolling:)]) {
-            [self.delegate L3SDKCardsView_OnScrolling:self.gestureDirection];
+        if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_Scrolling:)]) {
+            [self.delegate L3SDKCardsView_Scrolling:self.gestureDirection];
         }
     }
 
@@ -230,19 +241,27 @@
     
     
     if (![self.gestureView isEqual:self]) {
+
         //we are swiping a card
         float x=self.gestureView.frame.origin.x;
         if (fabs(x)>self.frame.size.width/2){
             //card will be deleted when x is greater than half width view
+            
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardWillRemove:)]) {
+                [self.delegate L3SDKCardsView_CardWillRemove:(L3SDKCard*)self.gestureView];
+            }
+            
             [self.gestureView removeFromSuperview];
             [self.cards removeObject:self.gestureView];
             [self setupHeight];
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnCardRemoved:)]) {
-                [self.delegate L3SDKCardsView_OnCardRemoved:(L3SDKCard*)self.gestureView];
+            
+            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardDidlRemove:)]) {
+                [self.delegate L3SDKCardsView_CardDidlRemove:(L3SDKCard*)self.gestureView];
             }
+            
             if (self.cards.count==0) {
-                if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_OnAllCardRemoved)]) {
-                    [self.delegate L3SDKCardsView_OnAllCardRemoved];
+                if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_AllCardRemoved)]) {
+                    [self.delegate L3SDKCardsView_AllCardRemoved];
                 }
             }
         }else{

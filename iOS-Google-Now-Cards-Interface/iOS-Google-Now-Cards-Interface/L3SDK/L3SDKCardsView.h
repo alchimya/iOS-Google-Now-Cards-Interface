@@ -11,11 +11,13 @@
 @protocol L3SDKCardsViewDelegate <NSObject>
 
 @optional
-- (void)L3SDKCardsView_OnScrolling:(UISwipeGestureRecognizerDirection)scrollDirection;
-- (void)L3SDKCardsView_OnCardRemoved:(L3SDKCard*)view;
-- (void)L3SDKCardsView_OnAllCardRemoved;
-- (void)L3SDKCardsView_OnUpperLimitReached;
-- (void)L3SDKCardsView_OnBottomLimitReached;
+- (void)L3SDKCardsView_Scrolling:(UISwipeGestureRecognizerDirection)scrollDirection;
+- (void)L3SDKCardsView_CardWillRemove:(L3SDKCard*)view;
+- (void)L3SDKCardsView_CardDidlRemove:(L3SDKCard*)view;
+- (void)L3SDKCardsView_AllCardRemoved;
+- (void)L3SDKCardsView_UpperLimitReached;
+- (void)L3SDKCardsView_BottomLimitReached;
+
 @end
 
 
@@ -24,6 +26,8 @@
 @property (nonatomic,assign)IBOutlet id<L3SDKCardsViewDelegate> delegate;
 @property (readonly,nonatomic,strong)NSMutableArray*cards;
 @property (readonly,nonatomic,strong)NSMutableArray*subViews;
+@property (nonatomic,assign)CGRect zeroFrame;
+
 -(void)addCard:(L3SDKCard*)card;
 -(void)addSubviewAtBottom:(UIView *)view;
 @end

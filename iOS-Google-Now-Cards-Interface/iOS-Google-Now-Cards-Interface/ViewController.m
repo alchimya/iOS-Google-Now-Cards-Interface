@@ -57,35 +57,36 @@
     
     //self.containerView.backgroundColor=[UIColor clearColor];
     
+    
 }
 
+-(CGFloat)getAlphaHeader{
+    //calculate alpha by a containteview current y and "original" y
+    return self.containerView.frame.origin.y/self.containerView.zeroFrame.origin.y;
+}
 //////////////////////////////////////////////////////////////////////////////////
 //EVENTS
 #pragma mark - L3SDKCardsView_ events delegate
-- (void)L3SDKCardsView_OnScrolling:(UISwipeGestureRecognizerDirection)scrollDirection{
-    if (scrollDirection==UISwipeGestureRecognizerDirectionUp) {
-        if (self.headerView.alpha>0) {
-            self.headerView.alpha=self.headerView.alpha-0.02;
-        }
-    }else  if (scrollDirection==UISwipeGestureRecognizerDirectionDown) {
-        if (self.headerView.alpha<1) {
-            self.headerView.alpha=self.headerView.alpha+0.02;
-        }
-    }
+- (void)L3SDKCardsView_Scrolling:(UISwipeGestureRecognizerDirection)scrollDirection{
+    self.headerView.alpha=[self getAlphaHeader];
 }
-- (void)L3SDKCardsView_OnUpperLimitReached{
+- (void)L3SDKCardsView_CardWillRemove:(L3SDKCard*)view{
+    NSLog(@"card will remove");
+}
+- (void)L3SDKCardsView_CardDidlRemove:(L3SDKCard*)view{
+    NSLog(@"card did remove");
+    self.headerView.alpha=[self getAlphaHeader];
+}
+- (void)L3SDKCardsView_AllCardRemoved{
+    self.headerView.alpha=1;
+}
+- (void)L3SDKCardsView_UpperLimitReached{
     self.headerView.alpha=0;
 }
-- (void)L3SDKCardsView_OnBottomLimitReached{
+- (void)L3SDKCardsView_BottomLimitReached{
     self.headerView.alpha=1;
 }
 
-- (void)L3SDKCardsView_OnCardRemoved:(L3SDKCard*)view{
-    NSLog(@"card deleted");
-}
-- (void)L3SDKCardsView_OnAllCardRemoved{
-    self.headerView.alpha=1;
-}
 //////////////////////////////////////////////////////////////////////////////////
 
 - (void)didReceiveMemoryWarning {
