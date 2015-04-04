@@ -17,6 +17,7 @@
     @property (nonatomic,assign)CGPoint gestureStartPoint;
     @property (nonatomic,assign)UIView*gestureView;
     @property (nonatomic,strong)NSMutableArray*cardsOptions;
+    @property (nonatomic,assign)CGRect superviewFrame;
 @end
 
 
@@ -30,6 +31,7 @@
 
 - (void)drawRect:(CGRect)rect {
     
+    self.superviewFrame=self.superview.frame;
     self.zeroFrame=self.frame;
     [super drawRect:rect];
     [self setupHeight];
@@ -103,7 +105,7 @@
     
     if (self.cards.count==1) {
         //if theRE is only one view move the container at the bottom line
-        y=self.superview.frame.size.height-((UIView*)[self.cards objectAtIndex:0]).frame.size.height-(CARD_Y_MARGIN*2);
+        y=self.superviewFrame.size.height-((UIView*)[self.cards objectAtIndex:0]).frame.size.height-(CARD_Y_MARGIN*2);
     }
     
     self.frame=CGRectMake(
@@ -128,7 +130,7 @@
     self.gestureStartPoint = [touch locationInView:self];
     //get view from touch
     self.gestureView = [self hitTest:self.gestureStartPoint withEvent:event];
-    
+
 }
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
@@ -138,10 +140,9 @@
     CGPoint gestureEndPoint = [touch locationInView:self];
     
     
+
     //gets gesture direction
-    //avoid to swipe on up/down scrolling
     self.gestureDirection=[self getGestureDirectionWithTouch:touch];
-    
 
     BOOL canScroll=[self canScroll:self.gestureDirection];
     //send event
@@ -180,6 +181,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     //NSLog(@"touchesEnded");
+
 
     if (![self.gestureView isEqual:self]) {
 
@@ -252,7 +254,7 @@
     
     if(scrollDirection==UISwipeGestureRecognizerDirectionUp && self.frame.origin.y<0) {
         //UP scrolling
-        if (fabs(self.frame.origin.y)>=self.frame.size.height-self.superview.frame.size.height) {
+        if (fabs(self.frame.origin.y)>=self.frame.size.height-self.superviewFrame.size.height) {
             //scroll will stop when last bottom view is at bottom margin
             if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_UpperLimitReached)]) {
                 [self.delegate L3SDKCardsView_UpperLimitReached];
@@ -273,7 +275,7 @@
     
     //avoid vertical scoll if is not required (content of view < of height view)
 
-    if ((self.frame.size.height + self.frame.origin.y)<self.superview.frame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
+    if ((self.frame.size.height + self.frame.origin.y)<self.superviewFrame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
         return NO;
     }
     
