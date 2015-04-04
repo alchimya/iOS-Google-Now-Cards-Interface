@@ -32,6 +32,7 @@
     //card1
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 100)];
     [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    
     //card2
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 150)];
     [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
@@ -56,8 +57,8 @@
     self.moreButton.titleLabel.font= [UIFont italicSystemFontOfSize:16.0f];
     
     [self.containerView addCard:self.moreButton];
-
-
+     
+     
     
 }
 

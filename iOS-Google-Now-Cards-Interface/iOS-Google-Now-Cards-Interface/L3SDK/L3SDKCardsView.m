@@ -103,8 +103,8 @@
         }
     }
     
-    if (self.cards.count==1) {
-        //if theRE is only one view move the container at the bottom line
+    if (self.cards.count==1 && ![self viewCanSwipe:[self.cards objectAtIndex:0]] ) {
+        //if there is only one view move the container at the bottom line
         y=self.superviewFrame.size.height-((UIView*)[self.cards objectAtIndex:0]).frame.size.height-(CARD_Y_MARGIN*2);
     }
     
@@ -200,10 +200,8 @@
                 [self.delegate L3SDKCardsView_CardWillRemove:self.gestureView];
             }
             
-            [self.gestureView removeFromSuperview];
-            [self.cards removeObject:self.gestureView];
-            [self setupHeight];
-            
+            [self removeView:self.gestureView];
+
             if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardDidlRemove:)]) {
                 [self.delegate L3SDKCardsView_CardDidlRemove:self.gestureView];
             }
@@ -286,8 +284,20 @@
 
 
 #pragma mark - Card Utility
+-(int)getIndexOfView:(UIView*)view{
+    return [self.cards indexOfObject:view];
+}
+-(void)removeView:(UIView*)view{
+    
+    int index=[self getIndexOfView:view];
+    [self.gestureView removeFromSuperview];
+    [self.cards removeObject:self.gestureView];
+    [self.cardsOptions removeObjectAtIndex:index];
+    [self setupHeight];
+    
+}
 -(L3SDKCardOptions) getOptionsForView:(UIView*)view{
-    int index=[self.cards indexOfObject:view];
+    int index=[self getIndexOfView:view];
     
     NSValue*value=[self.cardsOptions objectAtIndex:index];
     L3SDKCardOptions ret;
