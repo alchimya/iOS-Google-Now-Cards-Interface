@@ -37,6 +37,7 @@
     
 }
 
+
 -(id)initWithFrame:(CGRect)frame{
     
     
@@ -78,7 +79,7 @@
     self.zeroFrame=self.frame;
     self.cardWidth=self.frame.size.width-CARD_X_MARGIN;
     [self setupHeight];
-
+    [self setNeedsDisplay];
 }
 
 #pragma mark - Card Layout
@@ -278,9 +279,9 @@
             return NO;
         }
     }
+
     
     //avoid vertical scoll if is not required (content of view < of height view)
-
     if ((self.frame.size.height + self.frame.origin.y)<self.superviewFrame.size.height && (self.frame.origin.y>=self.zeroFrame.origin.y)) {
         return NO;
     }
