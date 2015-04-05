@@ -25,16 +25,15 @@
 @synthesize cards;
 @synthesize delegate;
 @synthesize zeroFrame;
-
+@synthesize cardWidth;
 
 #pragma mark - Init
 
+
 - (void)drawRect:(CGRect)rect {
     
-    self.superviewFrame=self.superview.frame;
-    self.zeroFrame=self.frame;
     [super drawRect:rect];
-    [self setupHeight];
+    [self drawView];
     
 }
 
@@ -63,6 +62,8 @@
 
 
 #pragma mark - Public Methods
+
+
 -(void)addCard:(UIView*)card{
     [self addCard:card withOptions:-1];
 }
@@ -71,6 +72,13 @@
    
     [self.cardsOptions addObject:[[NSValue alloc]  initWithBytes:&options objCType:@encode(L3SDKCardOptions)]];
     [self addSubview:card];
+}
+-(void)drawView{
+    self.superviewFrame=self.superview.frame;
+    self.zeroFrame=self.frame;
+    self.cardWidth=self.frame.size.width-CARD_X_MARGIN;
+    [self setupHeight];
+
 }
 
 #pragma mark - Card Layout
@@ -87,7 +95,7 @@
         card.frame=CGRectMake(
                               card.frame.origin.x,
                               height,
-                              self.frame.size.width-CARD_X_MARGIN,
+                              self.cardWidth,
                               card.frame.size.height);
         card.center = [self getCardCenter:card andXOffset:0 andYOffset:CARD_Y_MARGIN];
         height+=card.frame.size.height+CARD_Y_MARGIN;

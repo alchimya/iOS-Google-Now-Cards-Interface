@@ -29,6 +29,8 @@ typedef NS_OPTIONS(NSUInteger, L3SDKCardOptions) {
 @property (nonatomic,assign)IBOutlet id<L3SDKCardsViewDelegate> delegate;
 @property (readonly,nonatomic,strong)NSMutableArray*cards;
 @property (nonatomic,assign)CGRect zeroFrame;
+@property (nonatomic,assign) CGFloat cardWidth;
 -(void)addCard:(UIView*)card;
 -(void)addCard:(UIView*)card withOptions:(L3SDKCardOptions)options;
+-(void)drawView;
 @end

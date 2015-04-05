@@ -57,11 +57,61 @@
     self.moreButton.titleLabel.font= [UIFont italicSystemFontOfSize:16.0f];
     
     [self.containerView addCard:self.moreButton];
-     
+    
+    
+    
+
      
     
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 
+    //if you want to add cards here, you have to use the drawView method
+    
+    /*
+    //sets delegate
+    self.containerView.delegate=self;
+    
+    //card setup
+    //NOTE It's needed to specify only the height of the card
+    L3SDKCard*card;
+    //card1
+    card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 100)];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    
+    //card2
+    card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 150)];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    
+    //card3
+    card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 80)];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    //card4
+    card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 120)];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    //card5
+    card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 220)];
+    [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    
+    
+    //add a view (UIButton) at bottom
+    self.moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.moreButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.containerView.frame.size.width, 40)];
+    [self.moreButton setTitle:@"More" forState:UIControlStateNormal];
+    self.moreButton.backgroundColor=[UIColor whiteColor];
+    [self.moreButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    self.moreButton.titleLabel.font= [UIFont italicSystemFontOfSize:16.0f];
+    
+    [self.containerView addCard:self.moreButton];
+    
+    
+    [self.containerView drawView];
+
+    */
+    
+    
+}
 -(CGFloat)getAlphaHeader{
     //calculate alpha by a containteview current y and "original" y
     return self.containerView.frame.origin.y/self.containerView.zeroFrame.origin.y;
