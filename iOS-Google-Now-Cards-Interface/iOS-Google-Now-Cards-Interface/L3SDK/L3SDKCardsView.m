@@ -77,9 +77,11 @@
 -(void)drawView{
     self.superviewFrame=self.superview.frame;
     self.zeroFrame=self.frame;
-    self.cardWidth=self.frame.size.width-CARD_X_MARGIN;
     [self setupHeight];
     [self setNeedsDisplay];
+}
+-(CGFloat)getCardWidth{
+    return self.frame.size.width-CARD_X_MARGIN;;
 }
 
 #pragma mark - Card Layout
