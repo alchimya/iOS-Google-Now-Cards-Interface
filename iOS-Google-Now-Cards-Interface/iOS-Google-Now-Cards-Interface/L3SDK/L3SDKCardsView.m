@@ -173,7 +173,8 @@
 
         
     }else if (self.gestureDirection==UISwipeGestureRecognizerDirectionLeft | self.gestureDirection==UISwipeGestureRecognizerDirectionRight) {
-        if ([self.gestureView isEqual:self]) {
+        //exit if view is self or is view can't swipe
+        if ([self.gestureView isEqual:self] | ![self viewCanSwipe:self.gestureView]) {
             return;
         }
 
@@ -200,12 +201,7 @@
         //we are swiping a card
         float x=self.gestureView.frame.origin.x;
         if (fabs(x)>self.frame.size.width/2){
-            //view can swipe?
-            
-            if (![self viewCanSwipe:self.gestureView]) {
-                return;
-            }
-            
+
             //card will be deleted when x is greater than half width view
             if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_CardWillRemove:)]) {
                 [self.delegate L3SDKCardsView_CardWillRemove:self.gestureView];

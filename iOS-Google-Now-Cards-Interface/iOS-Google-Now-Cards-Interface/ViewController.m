@@ -47,7 +47,9 @@
     
     //card2
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 150)];
+    //try for example to comment the first line of code and to add the view with no swipeable option
     [self.containerView addCard:card withOptions:L3SDKCardOptionsIsSwipeableCard];
+    //[self.containerView addCard:card];
     
     //card3
     card=[[L3SDKCard alloc]initWithFrame:CGRectMake(0, 0, 0, 80)];
