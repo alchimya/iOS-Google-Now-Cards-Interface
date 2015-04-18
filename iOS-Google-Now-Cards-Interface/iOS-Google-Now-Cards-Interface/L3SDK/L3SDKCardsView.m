@@ -134,9 +134,8 @@
 #pragma mark - Touch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     //NSLog(@"touchesBegan");
+    
     UITouch *touch = [touches anyObject];
-    
-    
     //set start touch point
     self.gestureStartPoint = [touch locationInView:self];
     //get view from touch
@@ -150,11 +149,9 @@
     UITouch *touch = [touches anyObject];
     CGPoint gestureEndPoint = [touch locationInView:self];
     
-    
-
     //gets gesture direction
     self.gestureDirection=[self getGestureDirectionWithTouch:touch];
-
+    
     BOOL canScroll=[self canScroll:self.gestureDirection];
     //send event
     if (canScroll) {
@@ -173,7 +170,7 @@
 
         
     }else if (self.gestureDirection==UISwipeGestureRecognizerDirectionLeft | self.gestureDirection==UISwipeGestureRecognizerDirectionRight) {
-        //exit if view is self or is view can't swipe
+        //exit if view is self or if view can't swipe
         if ([self.gestureView isEqual:self] | ![self viewCanSwipe:self.gestureView]) {
             return;
         }
@@ -193,7 +190,6 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     //NSLog(@"touchesEnded");
-
 
     if (![self.gestureView isEqual:self]) {
 
@@ -259,7 +255,7 @@
     
     if(scrollDirection==UISwipeGestureRecognizerDirectionUp && self.frame.origin.y<0) {
         //UP scrolling
-        if (fabs(self.frame.origin.y)>=self.frame.size.height-self.superviewFrame.size.height) {
+        if (fabs(self.frame.origin.y)>=fabs(self.frame.size.height-self.superviewFrame.size.height)) {
             //scroll will stop when last bottom view is at bottom margin
             if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(L3SDKCardsView_UpperLimitReached)]) {
                 [self.delegate L3SDKCardsView_UpperLimitReached];
@@ -314,6 +310,10 @@
     return ret;
 }
 -(BOOL)viewCanSwipe:(UIView*)view{
+    
+    if ([view isEqual:self]) {
+        return NO;
+    }
     
     L3SDKCardOptions options=[self getOptionsForView:view];
     if (options==L3SDKCardOptionsIsSwipeableCard) {
