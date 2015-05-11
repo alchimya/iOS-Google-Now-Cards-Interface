@@ -1,6 +1,8 @@
 # iOS-Google-Now-Cards-Interface
 <br/>
-Working on a LamCube App, I developed a (look like) Google Now Cards Interface.
+A look like Google Now Cards Interface.
+<br/>
+I did not use UITableView or UICollectionView, but I used a view with sub views.
 <br/>
 Enjoy!
 <br/>
