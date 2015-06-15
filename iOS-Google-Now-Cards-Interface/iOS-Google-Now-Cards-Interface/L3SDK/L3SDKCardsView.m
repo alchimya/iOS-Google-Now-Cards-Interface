@@ -135,6 +135,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     //NSLog(@"touchesBegan");
     
+    
     UITouch *touch = [touches anyObject];
     //set start touch point
     self.gestureStartPoint = [touch locationInView:self];
@@ -145,6 +146,8 @@
 
 - (void) touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
+
+   
     //NSLog(@"touchesMoved");
     UITouch *touch = [touches anyObject];
     CGPoint gestureEndPoint = [touch locationInView:self];
@@ -174,7 +177,7 @@
         if ([self.gestureView isEqual:self] | ![self viewCanSwipe:self.gestureView]) {
             return;
         }
-
+        
         //swipe card
         gestureEndPoint = [touch locationInView:self.gestureView];
         self.gestureView.frame = CGRectOffset(self.gestureView.frame,
@@ -192,7 +195,6 @@
     //NSLog(@"touchesEnded");
 
     if (![self.gestureView isEqual:self]) {
-
         
         //we are swiping a card
         float x=self.gestureView.frame.origin.x;
@@ -234,17 +236,16 @@
     int dx = abs(self.gestureStartPoint.x - gestureEndPoint.x);
     int dy = -1 * (gestureEndPoint.y - self.gestureStartPoint.y);
     
-    
     if(dx > 20) {
-        // too much left/right, so don't do anything
+        // left/right
         return UISwipeGestureRecognizerDirectionRight;
     }
     
     if(dy < 0) {
-        // they moved down
+        // down
         return UISwipeGestureRecognizerDirectionDown;
     }else if(dy > 0) {
-        // they moved down
+        // up
         return UISwipeGestureRecognizerDirectionUp;
     }
     
@@ -252,7 +253,7 @@
 }
 -(BOOL)canScroll:(UISwipeGestureRecognizerDirection)scrollDirection{
     
-    
+
     if(scrollDirection==UISwipeGestureRecognizerDirectionUp && self.frame.origin.y<0) {
         //UP scrolling
         if (fabs(self.frame.origin.y)>=fabs(self.frame.size.height-self.superviewFrame.size.height)) {
@@ -280,7 +281,7 @@
         return NO;
     }
     
-
+   
     return YES;
     
 }
@@ -302,6 +303,12 @@
 -(L3SDKCardOptions) getOptionsForView:(UIView*)view{
     int index=[self getIndexOfView:view];
     
+    //Bug fix
+    //06/06/2015
+    if (index>[self.cardsOptions count] || index<0) {
+        return 0;
+    }
+    
     NSValue*value=[self.cardsOptions objectAtIndex:index];
     L3SDKCardOptions ret;
     [value getValue:&ret];
@@ -311,6 +318,7 @@
 }
 -(BOOL)viewCanSwipe:(UIView*)view{
     
+
     if ([view isEqual:self]) {
         return NO;
     }

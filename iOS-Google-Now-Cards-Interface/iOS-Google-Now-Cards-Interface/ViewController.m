@@ -22,18 +22,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addCards];
+   [self addCards];
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 
-    //if you want to add cards here, you have to use the drawView method
-    //[self addCards:YES];
+    /*
+    if (self.containerView.cards.count!=0) {
+        [self.containerView drawView];
+        return;
+    }
+    [self addCards];
+     */
+    
 }
+
 -(void)addCards{
-   [self addCards:NO];
-}
--(void)addCards:(BOOL)drawView{
     
     //sets delegate
     self.containerView.delegate=self;
@@ -70,10 +74,9 @@
     [self.moreButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     self.moreButton.titleLabel.font= [UIFont italicSystemFontOfSize:16.0f];
     [self.containerView addCard:self.moreButton];
-    
-    if (drawView) {
-        [self.containerView drawView];
-    }
+
+    [self.containerView drawView];
+
     
 }
 -(CGFloat)getAlphaHeader{
